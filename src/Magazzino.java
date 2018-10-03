@@ -1,7 +1,9 @@
 import java.util.Collection;
 import java.util.HashMap;
 
-import javax.swing.text.html.HTMLDocument.Iterator;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Scanner;
 
 public class Magazzino {
 	
@@ -17,19 +19,43 @@ public class Magazzino {
 		magazzino.put(articolo.id, articolo);
 	}
 	
+	public void controlloQuantita()
+	{
+		System.out.println("CONTROLLO QUANTITA'");
+		int valoreControllo = 3;
+		Articolo value= new Articolo();
+	 	    for (Integer key : magazzino.keySet()) 
+	 	    {	
+	 	    	value = magazzino.get(key);
+	 	    	if(value.getQuantita() < valoreControllo)
+	 	     		System.out.println("ARTICOLO " + key + " IN EUSARIMENTO, QUANTITA' = " + value.getQuantita());
+	 	    }
+	}
+	
+	public void controlloQuantitaProdotto()
+	{
+		System.out.println("CONTROLLO QUANTITA' PRODOTTO");
+		int valoreControllo = 3;
+		System.out.println("iolla");
+		Scanner input = new Scanner(System.in);
+		String descrizione = input.nextLine();
+		Articolo value= new Articolo();
+	 	    for (Integer key : magazzino.keySet()) 
+	 	    {	
+	 	    	value = magazzino.get(key);
+	 	    	if(descrizione.equals(value.getDescrizione()) && value.getQuantita() < valoreControllo)
+	 	     		System.out.println("ARTICOLO " + key + " IN EUSARIMENTO, QUANTITA' = " + value.getQuantita());
+	 	    }
+	}
+	
 	public void stampaMagazzino()
 	{
-		Collection<Articolo> collection = magazzino.values();
-		Iterator it = (Iterator) ((HashMap<Integer,Articolo>) collection).entrySet().iterator();
-		while (it.hasNext()){
-		 Articolo art = it.next();
-		  System.out.println(art);
-		}
+	 Iterator iterator = magazzino.entrySet().iterator();
+        while (iterator.hasNext()) {
+             Map.Entry me2 = (Map.Entry) iterator.next();
+          System.out.println("Key: "+me2.getKey() + " & Value: " + ((Articolo) me2.getValue()).getDescrizione());
+        } 
 	}
+	
+}	
 
-}		 Iterator it = mp.entrySet().iterator();
-while (it.hasNext()) {
-    Map.Entry pair = (Map.Entry)it.next();
-    System.out.println(pair.getKey() + " = " + pair.getValue());
-    it.remove(); // avoids a ConcurrentModificationException
-}
